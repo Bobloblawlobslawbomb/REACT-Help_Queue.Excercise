@@ -9,6 +9,7 @@ class TicketControl extends React.Component {
     this.state = {
       formVisibleOnPage: false
     };
+    //this.handleClick = this.handleClick.bind(this); //what you'd need to not use arrow notation for the button bound to 'this'
   }
 
   handleClick = () => {
@@ -17,9 +18,15 @@ class TicketControl extends React.Component {
     }));
   }
 
+  // handleClick(){ //what you'd need to not use arrow notation for the button bound to 'this'
+  //   this.setState(prevState => ({
+  //     formVisibleOnPage: !prevState.formVisibleOnPage
+  //   }));
+  // }  
+
   render(){
     let currentlyVisibleState = null;
-    let addTicketButton = null; // new code
+    let buttonText = null; // new code
     if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewTicketForm />;
       buttonText = "Return to Ticket List"; // newer code
