@@ -7,9 +7,17 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false
+      formVisibleOnPage: false,
+      masterTicketList: []
     };
-    //this.handleClick = this.handleClick.bind(this); //what you'd need to not use arrow notation for the button bound to 'this'
+  }
+
+
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
+    this.setState({
+      masterTicketList: newMasterTicketList,
+      formVisibleOnPage: false });
   }
 
   handleClick = () => {
@@ -18,26 +26,20 @@ class TicketControl extends React.Component {
     }));
   }
 
-  // handleClick(){ //what you'd need to not use arrow notation for the button bound to 'this'
-  //   this.setState(prevState => ({
-  //     formVisibleOnPage: !prevState.formVisibleOnPage
-  //   }));
-  // }  
-
   render(){
     let currentlyVisibleState = null;
-    let buttonText = null; // new code
+    let buttonText = null;
     if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewTicketForm />;
-      buttonText = "Return to Ticket List"; // newer code
+      currentlyVisibleState = <NewTicketForm onNewTicketFormCreation={this.handleAddingNewTicketToList} />;
+      buttonText = "Return to Ticket List";
     } else {
-      currentlyVisibleState = <TicketList />
-      buttonText = "Add Ticket"; // newer code
+      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} />;
+      buttonText = "Add Ticket";
     }
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button> { /* newer code */}
+        <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
   }
