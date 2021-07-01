@@ -4,22 +4,25 @@ import PropTypes from "prop-types";
 
 function TicketList(props){
   return (
-    <div>
+    <React.Fragment>
       <hr/>
       {props.ticketList.map((ticket) =>
-        <Ticket names={ticket.names}
+        <Ticket
+          whenTicketClicked = { props.onTicketSelection }
+          names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
-          formattedWaitTime={ticket.formattedWaitTime}
+          id={ticket.id}
           key={ticket.id}/>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 
 //Add propTypes for ticketList.
 TicketList.propTypes = {
-  ticketList: PropTypes.array
+  ticketList: PropTypes.array,
+  onTicketSelection: PropTypes.func
 };
 
 export default TicketList;
