@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   formVisibleOnPage: formVisibleReducer,
-  masterTickerList: ticketListReducer
+  masterTicketList: ticketListReducer
 });
 
 export default rootReducer;
