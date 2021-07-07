@@ -19,9 +19,9 @@ function EditTicketForm (props) {
   );
 }
 
-export default EditTicketForm;
-
 EditTicketForm.propTypes = {
   ticket: PropTypes.object,
   onEditTicket:PropTypes.func
 }
+
+export default EditTicketForm;
