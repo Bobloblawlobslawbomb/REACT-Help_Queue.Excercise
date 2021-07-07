@@ -5,12 +5,12 @@ import TicketDetail from './TicketDetail';
 import EditTicketForm from './EditTicketForm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as a from './../actions';
 
 class TicketControl extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       //formVisibleOnPage: false,
       selectedTicket: null,
@@ -29,23 +29,32 @@ class TicketControl extends React.Component {
   // });
   // }
 
-
   handleEditingTicketInList = (ticketToEdit) => {
     const { dispatch } = this.props;
-    const { id, names, location, issue } = ticketToEdit;
-    const action = {
-      type: 'ADD_TICKET',
-      id: id,
-      names: names,
-      location: location,
-      issue: issue,
-    }
+    const action = a.addTicket(ticketToEdit);
     dispatch(action);
     this.setState({
       editing: false,
       selectedTicket: null
     });
   }
+
+  // handleEditingTicketInList = (ticketToEdit) => {
+  //   const { dispatch } = this.props;
+  //   const { id, names, location, issue } = ticketToEdit;
+  //   const action = {
+  //     type: 'ADD_TICKET',
+  //     id: id,
+  //     names: names,
+  //     location: location,
+  //     issue: issue,
+  //   }
+  //   dispatch(action);
+  //   this.setState({
+  //     editing: false,
+  //     selectedTicket: null
+  //   });
+  // }
 
   // handleAddingNewTicketToList = (newTicket) => {
   //   const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
@@ -56,20 +65,10 @@ class TicketControl extends React.Component {
 
   handleAddingNewTicketToList = (newTicket) => {
     const { dispatch } = this.props;
-    const { id, names, location, issue } = newTicket;
-    const action = {
-      type: 'ADD_TICKET',
-      id: id,
-      names: names,
-      location: location,
-      issue: issue,
-    }
+    const action = a.addTicket(newTicket);
     dispatch(action);
-    const action2 = {
-      type: 'TOGGLE_FORM'
-    }
-    dispatch(action2);
-    // this.setState({formVisibleOnPage: false});
+    const action2 = a.toggleForm();
+    dispatch (action2);
   }
 
   // handleDeletingTicket = (id) => {
@@ -82,13 +81,20 @@ class TicketControl extends React.Component {
 
   handleDeletingTicket = (id) => {
     const { dispatch } = this.props;
-    const action = {
-      type: 'DELETE_TICKET',
-      id: id
-    }
+    const action = a.deleteTicket(id);
     dispatch(action);
-    this.setState({ selectedTicket: null });
+    this.setState({selectedTicket: null});
   }
+
+  // handleDeletingTicket = (id) => {
+  //   const { dispatch } = this.props;
+  //   const action = {
+  //     type: 'DELETE_TICKET',
+  //     id: id
+  //   }
+  //   dispatch(action);
+  //   this.setState({ selectedTicket: null });
+  // }
 
   handleEditClick = () => {
     console.log("handleEdirClick reached!");
@@ -104,9 +110,7 @@ class TicketControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
       // this.setState(prevState => ({
       //   formVisibleOnPage: !prevState.formVisibleOnPage,
@@ -142,7 +146,6 @@ class TicketControl extends React.Component {
       currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
       buttonText = "Return to Ticket List";
     } else {
-      console.log(this.props.masterTicketList)
       currentlyVisibleState = <TicketList ticketList={this.props.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />;
       buttonText = "Add Ticket";
     }
