@@ -49,15 +49,15 @@ class TicketControl extends React.Component {
   // });
   // }
 
-  handleEditingTicketInList = (ticketToEdit) => {
-    const { dispatch } = this.props;
-    const action = a.addTicket(ticketToEdit);
-    dispatch(action);
-    this.setState({
-      editing: false,
-      selectedTicket: null
-    });
-  }
+  // handleEditingTicketInList = (ticketToEdit) => {
+  //   const { dispatch } = this.props;
+  //   const action = a.addTicket(ticketToEdit);
+  //   dispatch(action);
+  //   this.setState({
+  //     editing: false,
+  //     selectedTicket: null
+  //   });
+  // }
 
   // handleEditingTicketInList = (ticketToEdit) => {
   //   const { dispatch } = this.props;
@@ -76,6 +76,8 @@ class TicketControl extends React.Component {
   //   });
   // }
 
+
+  // Without Redux
   // handleAddingNewTicketToList = (newTicket) => {
   //   const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
   //   this.setState({
@@ -83,13 +85,21 @@ class TicketControl extends React.Component {
   //     formVisibleOnPage: false });
   // }
 
-  handleAddingNewTicketToList = (newTicket) => {
-    const { dispatch } = this.props;
-    const action = a.addTicket(newTicket);
-    dispatch(action);
-    const action2 = a.toggleForm();
-    dispatch (action2);
+  // // With Redux
+  // handleAddingNewTicketToList = (newTicket) => {
+  //   const { dispatch } = this.props;
+  //   const action = a.addTicket(newTicket);
+  //   dispatch(action);
+  //   const action2 = a.toggleForm();
+  //   dispatch (action2);
+  // }
+
+    handleAddingNewTicketToList = () => {
+      const { dispatch } = this.props;
+      const action = a.toggleForm();
+      dispatch(action);
   }
+
 
   // handleDeletingTicket = (id) => {
   //   const newMasterTicketList = this.state.masterTicketList.filter(ticket => ticket.id !== id);
